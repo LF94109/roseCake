@@ -8,14 +8,19 @@
     <script src="libs/jquery.js"></script>
     <script src="libs/bootStrap/js/bootstrap.min.js"></script>
     <script src="js/index.js"></script>
+    <script src="libs/angular.js"></script>
+    <script src="libs/angular-ui-router.js"></script>
 </head>
 <body>
+<!--头部-->
 <header>
     <div class="container" id="headerTop">
         <img src="img/rose主推/logo.png" id="logoImg">
-        <div class="formMiddle18">
-            <input type="text" placeholder="请输入您要搜索的内容">
-            <div class="btn"><img src="img/rose主推/soso.jpg"></div>
+        <div class="serchBox">
+            <div class="formMiddle18">
+                <input type="text" placeholder="请输入您要搜索的内容">
+                <a class="btn" style="background: url('/img/rose主推/soso.jpg')"></a>
+            </div>
             <div class="recommandKeyBox">
                 <div class="linkKeys"><a href=""><span>奶油蛋糕</span></a></div>
                 <div class="linkKeys"><a href=""><span>马卡龙</span></a></div>
@@ -33,15 +38,55 @@
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">首页</a></li>
-                <li><a href="#">Rose主推</a></li>
-                <li><a href="#">咖啡/饮品</a></li>
-                <li><a href="#">糕点点心</a></li>
-                <li><a href="#">手工烘焙</a></li>
-                <li><a href="#">会员登录</a></li>
+                <li class="active"><a ui-sref="home">首页</a></li>
+                <li><a ui-sref="rose">Rose主推</a></li>
+                <li><a ui-sref="caffe">咖啡/饮品</a></li>
+                <li><a ui-sref="cake">糕点点心</a></li>
+                <li><a ui-sref="handMade">手工烘焙</a></li>
+                <li><a ui-sref="vip">会员登录</a></li>
             </ul>
         </div>
     </nav>
 </header>
+<!--内容View-->
+<div ui-view></div>
+<!--底部-->
+<footer>
+    <div class="container">
+        <div class="footerTop">
+            <img src="img/会员登陆/fresh.png">
+            <img src="img/会员登陆/health.png">
+            <img src="img/会员登陆/safe.png">
+            <img src="img/会员登陆/diversity.png">
+        </div>
+        <div class="lineMiddle">
+            <img src="img/会员登陆/line.png">
+        </div>
+        <div class="footerBottom">
+            <div class="bottomLeft">
+                <div class="line_1">
+                    <a href="">&nbsp;首页&#x3000;&#x3000;</a>
+                    <a href="">Rose主推</a>
+                    <a href="">咖啡/饮品</a>
+                </div>
+                <div class="line_2">
+                    <a href="">糕点点心</a>
+                    <a href="">手工烘焙</a>
+                    <a href="">&nbsp;会员登录</a>
+                </div>
+            </div>
+            <img src="img/会员登陆/line.png">
+            <div class="bottomMiddle">
+                <span>订购电话:15888810086</span>
+            </div>
+            <img src="img/会员登陆/line.png">
+            <div class="bottomRight">
+                <span>营业时间: 09:00 ~ 22:00</span>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+</footer>
 </body>
 </html>
