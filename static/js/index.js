@@ -19,35 +19,62 @@ $(function(){
 
 
     //添加angular路由系统
-    //DOM加载完之后
-    //创建一个模块，然后将ui.router这个模块引入到我们的模块中
-    //这样就意味着，我们可以使用ui.router这个模块了
-    //数组参数使我们当前使用的模块所要依赖的模块列表
     var app = angular.module('zlf',['ui.router'])
 
     //通过config我们来设置路由
     app.config(['$stateProvider','$urlRouterProvider',
         function ($stateProvider,$urlRouterProvider) {
-            //这里，我就可以使用ui.router模块里边的关于设置路由的两个服务了。
-            //$stateProvider是设置路由的，$urlRouterProvider是设置默认访问地址的
-
             //设置一下默认状态
-            $urlRouterProvider.otherwise(function($injector,$location){
-                return $location.search().url || '/';
-            })
+            $urlRouterProvider.otherwise('/')
             $stateProvider
                 //首页
                 .state('home',{
                     url:'/',
-                    templateUrl:'tpl/home.html',
-                    controller:function($scope){
+                    templateUrl:'tpl/home.html'
+                })
+
+                //rose主推
+                .state('rose',{
+                    url:'/rose',
+                    templateUrl:'tpl/rose.html'
+                })
+
+                //咖啡/饮品
+                .state('caffe',{
+                    url:'/caffe',
+                    templateUrl:"tpl/caffe.html"
+                })
+
+                //糕点点心
+                .state('cake',{
+                    url:'/cake',
+                    templateUrl:"tpl/cake.html"
+                })
+
+                //手工烘焙
+                .state('handMade',{
+                    url:'/handMade',
+                    templateUrl:"tpl/handMade.html"
+                })
+
+                //会员登录
+                .state('vip',{
+                    url:'/vip',
+                    templateUrl:"tpl/vip.html"
+                })
+
+                //注册
+                .state('register',{
+                    url:'/register',
+                    templateUrl:"tpl/register.html",
+                    controller:function(){
                         //图片hover效果
                         $('.colspan2').each(function(index){
                             $('.colspan2').hover(function(){
                                 $(this).eq(index).find('.modlefile').stop().animate(1000,
                                     function(){
                                         $(this).css({'bottom':0,display:'block'})
-                                })
+                                    })
                             },function(){
                                 $(this).eq(index).find('.modlefile').stop().animate(1000,function(){
                                     $(this).css({'bottom':'-28px',display:'none'})
@@ -101,83 +128,8 @@ $(function(){
                         $('.icon_right').click(function(){
                             showNextImg();
                         });
-
                     }
                 })
-
-                //rose主推
-                .state('rose',{
-                    url:'/rose',
-                    templateUrl:'tpl/rose.html',
-                    controller:function($scope){
-                        //图片hover效果
-                        $('.colspan3').each(function(index){
-                            $('.colspan3').hover(function(){
-                                $(this).eq(index).find('.serchImg').css({display:'block'})
-                            },function(){
-                                $(this).eq(index).find('.serchImg').css({display:'none'})
-                            })
-                        })
-                    }
-                })
-
-                //咖啡/饮品
-                .state('caffe',{
-                    url:'/caffe',
-                    templateUrl:"tpl/caffe.html",
-                    controller:function($scope){
-                        //图片hover效果
-                        $('.colspan3').each(function(index){
-                            $('.colspan3').hover(function(){
-                                $(this).eq(index).find('.serchImg').css({display:'block'})
-                            },function(){
-                                $(this).eq(index).find('.serchImg').css({display:'none'})
-                            })
-                        })
-                    }
-                })
-
-                //糕点点心
-                .state('cake',{
-                    url:'/cake',
-                    templateUrl:"tpl/cake.html",
-                    controller:function($scope){
-                        //图片hover效果
-                        $('.colspan3').each(function(index){
-                            $('.colspan3').hover(function(){
-                                $(this).eq(index).find('.serchImg').css({display:'block'})
-                            },function(){
-                                $(this).eq(index).find('.serchImg').css({display:'none'})
-                            })
-                        })
-                    }
-                })
-
-                //手工烘焙
-                .state('handMade',{
-                    url:'/handMade',
-                    templateUrl:"tpl/handMade.html",
-                    controller:function($scope){
-                        //图片hover效果
-                        $('.colspan3').each(function(index){
-                            $('.colspan3').hover(function(){
-                                $(this).eq(index).find('.serchImg').css({display:'block'})
-                            },function(){
-                                $(this).eq(index).find('.serchImg').css({display:'none'})
-                            })
-                        })
-                    }
-                })
-
-                //会员登录
-                .state('vip',{
-                    url:'/vip',
-                    templateUrl:"tpl/vip.html",
-                    controller:function($scope){}
-                })
-
         }])
     angular.bootstrap(document,['zlf'])
-
-
 })

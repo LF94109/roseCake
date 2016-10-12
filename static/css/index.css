@@ -90,16 +90,17 @@ html,body{
     background-color: white;
     z-index:10;
     border:1px solid #e6e6e6;
+    display: none;
 }
 .cartSize{
     background-size: 200%;
     position: absolute;
+    margin-left: -10px;
     width: 92px;
     height: 84px;
     margin-top: 40px;
     background-image: url("../img/rose主推/ico.png");
     background-position: 12px -880px;
-    display: none;
 }
 .cartFont{
     font-size: 12px;
@@ -107,8 +108,6 @@ html,body{
     line-height: 143px;
     color: #b2b2b2;
     text-align: left;
-    word-wrap: break-word;
-    word-break: normal;
     font-family: 'microsoft yahei';
 }
 .cartLeft{
@@ -510,4 +509,13 @@ footer{
     text-decoration: none;
     color:black;
     float: right;
+}
+.formData{
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+}
+.formData>input{
+    border:1px solid #e9e9e9;
+    margin-bottom:10px;
 }

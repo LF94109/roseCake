@@ -1,0 +1,56 @@
+<content>
+    <!--轮播图-->
+    <div class="billboard">
+        <div class="billboard_item"  style="text-align: center; line-height: 500px;background-size: 100%">
+            <img src="img/首页/loading.gif">
+        </div>
+        <div class="billboard_item lunbo">
+            <a href="" class="billboardImgInner"></a>
+            <a href="" class="billboardTileInner"></a>
+        </div>
+        <a href=""><img src="img/首页/left.png" class="icon_left"></a>
+        <a href=""><img src="img/首页/right.png" class="icon_right"></a>
+    </div>
+    <div class="container">
+        <div class="Rosefoot vip">
+            <div class="font_today font_vip">会员注册</div>
+            <div class="border_vip"></div>
+        </div>
+        <form action="#" method="POST" class="formData">
+            &#x3000;&#x3000;帐号：<input type="text" name="userName" id="userName"required="required"/><span style="color: red;">*</span><br>
+            &#x3000;&#x3000;密码：<input type="password" name="psw" id="psw" required="required" /><span style="color: red;">*</span><br>
+           确认密码：<input type="password" name="pswAgain" id="pswAgain" required="required" /><span style="color: red;">*</span><br>
+            <input type="submit" value="注册" style="background-color: white;width:50px;height: 30px;"/>
+        </form>
+
+    </div>
+</content>
+<script>
+    window.onload = function(){
+        document.forms[0].onsubmit = function(e){
+            e.preventDefault();
+            var psw = document.querySelector('#psw').value
+            var pswAgain = document.querySelector('#pswAgain').value
+            if(psw != pswAgain){
+                alert('两次密码不一致')
+                return
+            }
+            var data = new FormData(this)
+            var xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4){
+                    var jsonObj = JSON.parse(xhr.responseText)
+                    if(jsonObj.success == 1){
+                        alert('恭喜你，注册成功！')
+//                        location.href = '/#/vip'
+                    }
+                    else{
+                        alert(jsonObj.resultMsg)
+                    }
+                }
+            }
+            xhr.open('POST','/user/register')
+            xhr.send(data)
+        }
+    }
+</script>

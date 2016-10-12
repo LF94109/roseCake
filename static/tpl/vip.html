@@ -7,13 +7,37 @@
             <div class="font_today font_vip">会员登录</div>
             <div class="border_vip"></div>
         </div>
-        <div class="formLogin">
-            <input type="text" class="loginInput userInput" placeholder="帐号">
-            <input type="password" class="loginInput pswInput" placeholder="密码">
+        <form class="formLogin" action="#" method="post">
+            <input type="text" class="loginInput userInput" name="userName" id="userName" placeholder="帐号" required >
+            <input type="password" class="loginInput pswInput" name="psw" id="psw" placeholder="密码" required >
             <input type="submit" class="loginInput submit" value="登录">
             <div class="login">
-                <a href="">免费注册></a>
+                <a ui-sref="register">免费注册></a>
             </div>
-        </div>
+        </form>
     </div>
 </content>
+<script>
+    window.onload = function() {
+        document.forms[0].onsubmit = function(e) {
+            e.preventDefault()
+            var data = new FormData(this)
+            var xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState == 4) {
+                    //alert(xhr.responseText)
+                    var jsonObj = JSON.parse(xhr.responseText)
+                    if(jsonObj.success == 1){
+                        alert('恭喜你，登录成功！')
+                        //location.href = '/'
+                    }
+                    else{
+                        alert(jsonObj.resultMsg)
+                    }
+                }
+            }
+            xhr.open('POST', '/user/login')
+            xhr.send(data)
+        }
+    }
+</script>

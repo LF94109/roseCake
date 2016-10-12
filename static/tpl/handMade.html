@@ -231,3 +231,13 @@
         </div>
     </div>
 </content>
+<script>
+    //图片hover效果
+    $('.colspan3').each(function(index){
+        $('.colspan3').hover(function(){
+            $(this).eq(index).find('.serchImg').css({display:'block'})
+        },function(){
+            $(this).eq(index).find('.serchImg').css({display:'none'})
+        })
+    })
+</script>

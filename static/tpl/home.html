@@ -196,3 +196,65 @@
         </div>
     </div>
 </content>
+<script>
+    //图片hover效果
+    $('.colspan2').each(function(index){
+        $('.colspan2').hover(function(){
+            $(this).eq(index).find('.modlefile').stop().animate(1000,
+                    function(){
+                        $(this).css({'bottom':0,display:'block'})
+                    })
+        },function(){
+            $(this).eq(index).find('.modlefile').stop().animate(1000,function(){
+                $(this).css({'bottom':'-28px',display:'none'})
+            })
+        })
+    })
+    //轮播图
+    //轮播的初始化
+    //自动循环的开始
+    var pic_start = 0;
+    //自动执行
+    var timer = setInterval(auto,1000);
+    function auto(){
+        if(pic_start >= 1){
+            pic_start = 0;
+            $('.billboardImgInner').css('display','block').siblings().css('display','none')
+        }else{
+            $('.billboardImgInner').css('display','none').siblings().css('display','block')
+            pic_start++;
+        }
+    }
+    $('.billboard').hover(function() {
+        //鼠标点击之后，去除自动播放
+        clearInterval(timer);
+    },function(){
+        pic_start = $(this).index() + 1
+        timer = setInterval(auto,1000)
+    })
+    //手动播放
+    var index = 0;
+    function getIndexNext(){
+        return index>=$(".billboard>a").length-1?0:index+1;
+    };
+    function getIndexPrev(){
+        return index<=0?$(".billboard>a").length-1:index-1;
+    };
+    function showSliderImg(){
+        $(".lunbo>a").eq(index).css('display','block').siblings().css('display','none');
+    };
+    var showNextImg = function(){
+        index = getIndexNext();
+        showSliderImg();
+    };
+    var showPrevImg = function(){
+        index = getIndexPrev();
+        showSliderImg();
+    };
+    $('.icon_left').click(function(){
+        showPrevImg();
+    });
+    $('.icon_right').click(function(){
+        showNextImg();
+    });
+</script>
