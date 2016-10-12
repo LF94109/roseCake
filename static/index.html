@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="css/index.css">
     <script src="libs/jquery.js"></script>
     <script src="libs/bootStrap/js/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
+
     <script src="libs/angular.js"></script>
     <script src="libs/angular-ui-router.js"></script>
+    <script src="js/index.js"></script>
 </head>
 <body>
 <!--头部-->
@@ -34,6 +35,10 @@
             <i class="shoppingAmount">0</i>
             <a href="">我的购物车</a>
         </div>
+        <div class="cartList">
+            <i class="cartSize"></i>
+            <div class="cartFont">您的购物车内暂时没有添加任何物品</div>
+        </div>
     </div>
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container">
@@ -49,37 +54,37 @@
     </nav>
 </header>
 <!--内容View-->
-<div ui-view></div>
+<div ui-view id="kind"></div>
 <!--底部-->
 <footer>
     <div class="container">
         <div class="footerTop">
-            <img src="img/会员登陆/fresh.png">
-            <img src="img/会员登陆/health.png">
-            <img src="img/会员登陆/safe.png">
-            <img src="img/会员登陆/diversity.png">
+            <img src="img/vip/fresh.png">
+            <img src="img/vip/health.png">
+            <img src="img/vip/safe.png">
+            <img src="img/vip/diversity.png">
         </div>
         <div class="lineMiddle">
-            <img src="img/会员登陆/line.png">
+            <img src="img/vip/line.png">
         </div>
         <div class="footerBottom">
             <div class="bottomLeft">
                 <div class="line_1">
-                    <a href="">&nbsp;首页&#x3000;&#x3000;</a>
-                    <a href="">Rose主推</a>
-                    <a href="">咖啡/饮品</a>
+                    <a href="/">&nbsp;首页&#x3000;&#x3000;</a>
+                    <a href="/#/rose">Rose主推</a>
+                    <a href="/#/caffe">咖啡/饮品</a>
                 </div>
                 <div class="line_2">
-                    <a href="">糕点点心</a>
-                    <a href="">手工烘焙</a>
-                    <a href="">&nbsp;会员登录</a>
+                    <a href="/#/cake">糕点点心</a>
+                    <a href="/#/handMade">手工烘焙</a>
+                    <a href="/#/vip">&nbsp;会员登录</a>
                 </div>
             </div>
-            <img src="img/会员登陆/line.png">
+            <img src="img/vip/line.png">
             <div class="bottomMiddle">
                 <span>订购电话:15888810086</span>
             </div>
-            <img src="img/会员登陆/line.png">
+            <img src="img/vip/line.png">
             <div class="bottomRight">
                 <span>营业时间: 09:00 ~ 22:00</span>
             </div>
