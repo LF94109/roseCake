@@ -1,3 +1,4 @@
+
 <content>
     <div class="bill">
         <img src="img/vip/title.jpg">
@@ -17,27 +18,29 @@
         </form>
     </div>
 </content>
-<script>
-    window.onload = function() {
-        document.forms[0].onsubmit = function(e) {
-            e.preventDefault()
-            var data = new FormData(this)
-            var xhr = new XMLHttpRequest()
-            xhr.onreadystatechange = function() {
-                if(xhr.readyState == 4) {
-                    //alert(xhr.responseText)
-                    var jsonObj = JSON.parse(xhr.responseText)
-                    if(jsonObj.success == 1){
-                        alert('恭喜你，登录成功！')
-                        //location.href = '/'
-                    }
-                    else{
-                        alert(jsonObj.resultMsg)
-                    }
+<script type="text/javascript">
+    document.forms[0].onsubmit = function(e) {
+        e.preventDefault()
+        var data = new FormData(this)
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4) {
+                //alert(xhr.responseText)
+                var jsonObj = JSON.parse(xhr.responseText)
+                if(jsonObj.success == 1){
+                    //alert('恭喜你，登录成功！')
+                    alert(jsonObj.msg)
+                    var username = jsonObj.userName
+                    $('.registerHeader').css('display','block')
+                    $('header').css('paddingTop','40px')
+                    $('.name').html(username)
+                }
+                else{
+                    alert(jsonObj.msg)
                 }
             }
-            xhr.open('POST', '/user/login')
-            xhr.send(data)
         }
+        xhr.open('POST', '/user/login')
+        xhr.send(data)
     }
 </script>

@@ -1,3 +1,4 @@
+
 <content>
     <!--轮播图-->
     <div class="billboard">
@@ -26,31 +27,83 @@
     </div>
 </content>
 <script>
-    window.onload = function(){
-        document.forms[0].onsubmit = function(e){
-            e.preventDefault();
-            var psw = document.querySelector('#psw').value
-            var pswAgain = document.querySelector('#pswAgain').value
-            if(psw != pswAgain){
-                alert('两次密码不一致')
-                return
-            }
-            var data = new FormData(this)
-            var xhr = new XMLHttpRequest()
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState == 4){
-                    var jsonObj = JSON.parse(xhr.responseText)
-                    if(jsonObj.success == 1){
-                        alert('恭喜你，注册成功！')
-//                        location.href = '/#/vip'
-                    }
-                    else{
-                        alert(jsonObj.resultMsg)
-                    }
+    //轮播图
+    //轮播的初始化
+    //自动循环的开始
+    var pic_start = 0;
+    //自动执行
+    var timer = setInterval(auto,1000);
+    function auto(){
+        if(pic_start >= 1){
+            pic_start = 0;
+            $('.billboardImgInner').css('display','block').siblings().css('display','none')
+        }else{
+            $('.billboardImgInner').css('display','none').siblings().css('display','block')
+            pic_start++;
+        }
+    }
+    $('.billboard').hover(function() {
+        //鼠标点击之后，去除自动播放
+        clearInterval(timer);
+    },function(){
+        pic_start = $(this).index() + 1
+        timer = setInterval(auto,1000)
+    })
+    //手动播放
+    var index = 0;
+    function getIndexNext(){
+        return index>=$(".billboard>a").length-1?0:index+1;
+    };
+    function getIndexPrev(){
+        return index<=0?$(".billboard>a").length-1:index-1;
+    };
+    function showSliderImg(){
+        $(".lunbo>a").eq(index).css('display','block').siblings().css('display','none');
+    };
+    var showNextImg = function(){
+        index = getIndexNext();
+        showSliderImg();
+    };
+    var showPrevImg = function(){
+        index = getIndexPrev();
+        showSliderImg();
+    };
+    $('.icon_left').click(function(){
+        showPrevImg();
+    });
+    $('.icon_right').click(function(){
+        showNextImg();
+    });
+</script>
+<script type="text/javascript">
+    document.forms[0].onsubmit = function(e){
+
+        e.preventDefault();
+        var psw = document.querySelector('#psw').value
+        var pswAgain = document.querySelector('#pswAgain').value
+        if(psw != pswAgain){
+            alert('两次密码不一致')
+            return
+        }
+        var data = new FormData(this)
+        var xhr = new XMLHttpRequest()
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                //console.log('zlf00')
+                var jsonObj = JSON.parse(xhr.responseText)
+                console.log(xhr)
+                console.log(xhr.response)
+                if(jsonObj.success == 1){
+                    //alert('恭喜你，注册成功！')
+                    alert(jsonObj.msg)
+                    location.href = '/#/vip'
+                }
+                else{
+                    alert(jsonObj.msg)
                 }
             }
-            xhr.open('POST','/user/register')
-            xhr.send(data)
         }
+        xhr.open('POST','/user/register')
+        xhr.send(data)
     }
 </script>

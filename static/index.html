@@ -13,6 +13,18 @@
 </head>
 <body>
 <!--头部-->
+<div class="registerHeader">
+    <div class="container user">
+        <div class="logoImg">
+            <img src="img/首页/logo.png">
+        </div>
+        <div class="userMsg">
+            <span class="name"></span>
+            <img src="img/首页/zs.jpg" style="width: 30px;">
+            <a class="Exit">[退出]</a>
+        </div>
+    </div>
+</div>
 <header>
     <div class="container" id="headerTop">
         <img src="img/rose主推/logo.png" id="logoImg">
@@ -52,8 +64,15 @@
         </div>
     </nav>
 </header>
+<!--侧边栏-->
+<!--<div class="borderSide">-->
+    <!--<div class="sideBar">-->
+
+    <!--</div>-->
+<!--</div>-->
 <!--内容View-->
 <div ui-view id="kind"></div>
+
 <!--底部-->
 <footer>
     <div class="container">
@@ -94,3 +113,30 @@
 </footer>
 </body>
 </html>
+<script>
+    $(function(){
+        //导航栏
+        $('header li').click(function(){
+            $(this).addClass('active').siblings().removeClass('active')
+        })
+        $('header li').hover(function(){
+            $(this).addClass('bgColor')
+        },function(){
+            $(this).removeClass('bgColor')
+        })
+
+        //购物车悬停效果
+        $('.cartButton').hover(function(){
+            $('.cartList').css('display','block')
+        },function(){
+            $('.cartList').css('display','none')
+        })
+
+        //登录成功后‘退出’按钮
+        $('.Exit').click(function(){
+            $('.registerHeader').css('display','none')
+            $('.name').empty()
+            $('header').css('paddingTop',0)
+        })
+    })
+</script>

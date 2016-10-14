@@ -14,37 +14,44 @@ app.post('/user/register',forms.array(),function(request,response){
     var requestBody = request.body
     var userName = requestBody.userName
     var psw = requestBody.psw
-    console.log(response)
-    var registerMsg = {userName,psw}
+
+    var registerMsg = {
+        username:userName,
+        psw:psw
+    }
+    console.log(registerMsg)
     fs.exists('register',function(isExists){
         if(!isExists){
             fs.mkdirSync('register')
         }else{
             var isUser = 0
+
             var data = fs.readFileSync('register/msg.txt','utf-8')
-            var result = '[' + data
+            if(data){
+                var result = '[' + data
                 result = result.substr(0,result.length-1)
                 result = result + ']'
-            console.log('+=+=+=+=+=')
-            var jsonObj = JSON.parse(result)
-            console.log('-------')
-            for(var i = 0; i < jsonObj.length;i++){
-                var aUser = jsonObj[i]
-                isUser = aUser.userName == userName ? true : false
-                if(isUser){
-                    break
+                console.log(result)
+                var jsonObj = JSON.parse(result)
+                console.log('-------')
+                for(var i = 0; i < jsonObj.length;i++){
+                    var aUser = jsonObj[i]
+                    isUser = aUser.username == userName ? true : false
+                    if(isUser){
+                        break
+                    }
                 }
             }
             if(isUser){
-                response.status(200).json({succuss:0,resultMsg:'该用户已存在'})
+                response.status(200).json({succuss:0,msg:'该用户已存在'})
                 return
             }
         }
-        fs.appendFile('register/msg.txt',JSON.stringfy(registerMsg) + ',',function(err){
+        fs.appendFile('register/msg.txt',JSON.stringify(registerMsg) + ',',function(err){
             if(err){
-                response.status(500).json({succuss:0,resultMsg:'服务器异常，注册失败'})
+                response.status(500).json({success:0,msg:'服务器异常，注册失败'})
             }else{
-                response.status(200).json({succuss:1,resultMag:'注册成功'})
+                response.status(200).json({success:1,msg:'注册成功'})
             }
         })
     })
@@ -53,8 +60,8 @@ app.post('/user/register',forms.array(),function(request,response){
 //处理登录的请求
 app.post('/user/login',forms.array(),function(request,response){
     var requestBody = request.body
-    var userName = requestBody.userName
-    var psw = requestBody.psw
+    var username = requestBody.userName
+    var apsw = requestBody.psw
     fs.exists('register/msg.txt',function(isExists){
         if(isExists){
             //读取保存的注册信息
@@ -68,39 +75,36 @@ app.post('/user/login',forms.array(),function(request,response){
                 var jsonObj = JSON.parse(result)
                 console.log('++++++')
                 var isUser = 0;
-                var getPsw = 0
+                var psw = 0
                 //遍历所有用户信息，找到一个和请求的用户名一样的信息，假如找到就代表该用户之前已经注册，否则就代表用户还未注册
                 for(var i = 0; i < jsonObj.length;i++){
                     console.log(jsonObj[i])
                     var aUser =  jsonObj[i]
-                    isUser = aUser.userName == userName ? true : false
+                    isUser = aUser.username == username ? true : false
                     //找到该用户信息之后，取出该用户注册密码信息，用于后边判断密码是否正确。同时跳出循环，结束查找。
                     if(isUser){
-                        getPsw = aUser.psw
+                        psw = aUser.psw
                         break
                     }
                 }
                 //判断用户是否存在
                 if(!isUser){
-                    response.status(200).json({success:0,resultMsg:'用户名不存在'})
+                    response.status(200).json({success:0,msg:'用户名不存在'})
                 }
                 else{
                     //判断密码是否正确
-                    if(getPsw == psw){
-                        response.status(200).json({success:1,resultMsg:'登录成功'})
+                    if(psw == apsw){
+                        response.status(200).json({success:1,msg:'登录成功',userName:username})
                     } else{
-                        response.status(200).json({success:0,resultMsg:'密码错误'})
+                        response.status(200).json({success:0,msg:'密码错误'})
                     }
                 }
             })
-        }
-        else{
-            response.status(200).json({success:0,resultMsg:'该用户不存在'})
         }
     })
 })
 
 //监听服务器
 app.listen(3000,function(){
-    console.log('server is running.....')
+    console.log('IndexServer is running.....')
 })
